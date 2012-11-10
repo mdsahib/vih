@@ -11,6 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Model;
 import models.Users;
 import utilities.BufferedHttpResponseWrapper;
 
@@ -20,20 +21,7 @@ import utilities.BufferedHttpResponseWrapper;
  */
 public class Login extends Basic {
 
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -77,16 +65,22 @@ public class Login extends Basic {
             
             
             
-            Users user = new Users ();
+                models.Users user = new models.Users ();
+           
             response.getWriter().write("I will be verified");
             
             if (user.verifyAuth(request, response)) {
+                response.getWriter().write("I will be verified");
+                try {
+                    user.close();
+                }
+                catch (Exception ex) {}
                 
-                response.getWriter().write("I am verified");
+                response.sendRedirect(request.getContextPath()+"/Homepage");
             }
-            else response.sendRedirect("/" + request.getContextPath()+"Login");
+            else response.sendRedirect( request.getContextPath()+"/Login");
         } catch (Exception ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            response.getWriter().write(ex.toString());
         }
       
         //sendResponse(null, request, response);

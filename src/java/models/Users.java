@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Users extends Model{
     
-    public Users () throws Exception{
+    public Users () throws Exception {
         
         super ();
         
