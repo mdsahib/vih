@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 
@@ -16,7 +17,7 @@ public class Model {
     protected InitialContext initCtx;
     protected Context ctx = null;
     protected DataSource ds = null;
-    
+    protected HttpServletResponse response;
 
     public Model() throws Exception {
         
@@ -24,7 +25,7 @@ public class Model {
          * Create a JNDI Initial context to be able to
          *  lookup  the DataSource
          */
-
+        
         initCtx = new InitialContext();
 
          /*
@@ -40,9 +41,12 @@ public class Model {
         
 
         try {
+            
             conn = ds.getConnection();
             
-        } finally {
+        } 
+        catch (SQLException ex ) {ex.printStackTrace() ; }
+        finally {
             
         }//end of finally
     

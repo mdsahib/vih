@@ -41,9 +41,9 @@ public class Basic extends HttpServlet {
             try {
                 dispatcher.forward(request, response);
             } catch (ServletException ex) {
-                Logger.getLogger(Basic.class.getName()).log(Level.SEVERE, null, ex);
+                
             } catch (IOException ex) {
-                Logger.getLogger(Basic.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
 
         }
