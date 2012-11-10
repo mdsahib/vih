@@ -1,32 +1,30 @@
 package models;
 
-import java.io.IOException;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
-import java.lang.Exception;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class Users extends Model{
+public class DrivingLisence extends Model{
     
-    public Users () throws Exception{
+    public DrivingLisence () throws Exception{
         
         super ();
         
         
     }
 
-    public boolean verifyAuth (HttpServletRequest request , HttpServletResponse response) {
+    public boolean verifyID (HttpServletRequest request , HttpServletResponse response) {
         try {
             
 
             
             PreparedStatement stmt = null;
-            stmt = conn.prepareStatement("SELECT * FROM users WHERE username=? AND password=?");
-            stmt.setString(1,request.getParameter("username"));
-            stmt.setString(2,request.getParameter("username"));
+            stmt = conn.prepareStatement("SELECT * FROM driving_licenses WHERE id=?");
+            stmt.setString(1,request.getParameter("driving_id"));
+            
             
             ResultSet rs= stmt.executeQuery();
             
@@ -53,4 +51,4 @@ public class Users extends Model{
     
     
     
-}//end of class
+}

@@ -3,10 +3,10 @@
   <persistence-unit name="vihPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/vih</jta-data-source>
-    <class>models.FitnessPapers</class>
-    <class>models.RegistrationPapers</class>
     <class>models.DrivingLicenses</class>
-    <class>models.RoadPermits</class>
+    <class>models.FitnessPaper</class>
+    <class>models.RegistrationPaper</class>
+    <class>models.RoadPermit</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mysql"/>

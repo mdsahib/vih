@@ -6,19 +6,28 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javaBeans.VerificationBean;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.*;
+import utilities.BufferedHttpResponseWrapper;
+import javaBeans.VerificationBean;
+import javax.servlet.ServletContext;
 
 /**
  *
  * @author Home
  */
-public class Homepage extends HttpServlet {
+public class Homepage extends Authenticate {
+    
+    public VerificationBean verificationBean = new VerificationBean();
 
     /**
-     * Processes requests for both HTTP
+     * Processes requests for both HTTP 
      * <code>GET</code> and
      * <code>POST</code> methods.
      *
@@ -61,7 +70,17 @@ public class Homepage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        BufferedHttpResponseWrapper wrapper = new BufferedHttpResponseWrapper(response);
+        try {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/Homepage.jsp");
+            dispatcher.include(request, wrapper);
+            String output = wrapper.getOutput();
+            sendResponse(output, request, response);
+
+        } finally {            
+            
+        }
     }
 
     /**
@@ -76,7 +95,43 @@ public class Homepage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ServletContext context = getServletContext();
+        
+        
+        try {
+            
+            
+            synchronized (this ) {
+            
+                boolean value;
+                DrivingLisence drivingLisence = new DrivingLisence();
+                value=drivingLisence.verifyID(request, response);
+                verificationBean.setDriving(value);
+
+                RegistrationPaper registrationPaper = new RegistrationPaper();
+                value=registrationPaper.verifyID(request, response);
+                verificationBean.setRegistration(value);
+
+                FitnessPaper fitnessPaper = new FitnessPaper();
+                value=fitnessPaper.verifyID(request, response);
+                verificationBean.setFitness(value);
+
+
+                RoadPermit roadPermit = new RoadPermit();
+                value=roadPermit.verifyID(request, response);
+                verificationBean.setRoadPermit(value);
+                
+                context.setAttribute("vb", verificationBean);
+                
+                doGet(request, response);
+                
+            }//end of synchronized block
+            
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Homepage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

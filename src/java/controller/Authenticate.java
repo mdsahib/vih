@@ -33,7 +33,7 @@ public class Authenticate extends Basic {
      * @throws IOException if an I/O error occurs
      */
     
-    @Override
+    /*@Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -55,6 +55,6 @@ public class Authenticate extends Basic {
         
         
     }//service
-
+*/
     
 }//end of Authenticate Class
