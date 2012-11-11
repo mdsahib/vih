@@ -22,3 +22,6 @@ This project is made to work as a vehicle information hub.
 
 ##Android Interface
 Android Interface can be found in [here](https://github.com/mdsahib/vih/tree/testing/Android%20Interface)
+
+##Database
+SQL file of the databas is available [here](https://github.com/mdsahib/vih/blob/testing/vih.sql)
