@@ -11,6 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Model;
 import models.Users;
 import utilities.BufferedHttpResponseWrapper;
@@ -70,15 +71,21 @@ public class Login extends Basic {
             response.getWriter().write("I will be verified");
             
             if (user.verifyAuth(request, response)) {
-                response.getWriter().write("I will be verified");
+                //response.getWriter().write("I will be verified");
+                HttpSession session = request.getSession();
                 try {
+                    if (session.getAttribute("loggedin") ==null ) {
+                        session.setAttribute("loggedin", 1);
+                    }
                     user.close();
                 }
                 catch (Exception ex) {}
                 
                 response.sendRedirect(request.getContextPath()+"/Homepage");
+                return;
             }
             else response.sendRedirect( request.getContextPath()+"/Login");
+            return;
         } catch (Exception ex) {
             response.getWriter().write(ex.toString());
         }

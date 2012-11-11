@@ -17,6 +17,7 @@ import models.*;
 import utilities.BufferedHttpResponseWrapper;
 import javaBeans.VerificationBean;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -26,36 +27,7 @@ public class Homepage extends Authenticate {
     
     public VerificationBean verificationBean = new VerificationBean();
 
-    /**
-     * Processes requests for both HTTP 
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /*
-             * TODO output your page here. You may use following sample code.
-             */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Homepage</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Homepage at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
-        }
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -70,6 +42,18 @@ public class Homepage extends Authenticate {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+              try {
+            HttpSession session = request.getSession();
+            
+            if (session.getAttribute("loggedin") == null){ 
+               response.sendRedirect( request.getContextPath()+"/Login");
+               return;
+            }
+               
+      
+               
+           // }
+        } catch (Exception ex) {response.getWriter().println(ex.toString());};
         response.setContentType("text/html;charset=UTF-8");
         BufferedHttpResponseWrapper wrapper = new BufferedHttpResponseWrapper(response);
         try {
@@ -95,7 +79,15 @@ public class Homepage extends Authenticate {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ServletContext context = getServletContext();
+            ServletContext context = getServletContext();
+        
+       try {
+            HttpSession session = request.getSession();
+            
+            if (session.getAttribute("loggedin") == null){ 
+               response.sendRedirect( request.getContextPath()+"/Login");
+            }
+        } catch (Exception ex) {};
         
         
         try {
