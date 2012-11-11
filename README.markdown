@@ -1,11 +1,11 @@
 # Vehicle Information Hub
-This is a project is made to work as a vehicle information hub. 
+This project is made to work as a vehicle information hub. 
 
 ## Features absent :
 - Role management system.
 - Admin panael for information management (CRUD).
 - Web service so that others can integrate with that system.
-- Hasing using SHA1 the password to the database before storing.
+- Hashing using SHA1 the password to the database before storing.
 - Adding salt to password before hasing to prevent rainbow attack.
 
 
@@ -19,3 +19,6 @@ This is a project is made to work as a vehicle information hub.
 - Views are in WEB-INF folder to prevent unauthorized access without it's loader servlet.
 - Models , Controllers , Utilities , Beans are all in different packages.
 - Android interface as well as web interface.
+
+##Android Interface
+
