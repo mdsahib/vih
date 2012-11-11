@@ -21,4 +21,4 @@ This project is made to work as a vehicle information hub.
 - Android interface as well as web interface.
 
 ##Android Interface
-
+Android Interface can be accessed in this URL : https://github.com/mdsahib/vih/tree/testing/Android%20Interface
